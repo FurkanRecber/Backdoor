@@ -46,7 +46,7 @@ class Socket:
 
     def cd_exec(self, directory):
         os.chdir(directory)
-        return f"cd {directory}\n"
+        return f"cd to {directory}\n"
 
     def start_server(self):
         while True:
