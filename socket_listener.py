@@ -16,7 +16,7 @@ class SocketListener:
     def __init__(self, ip, port):
         listener = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        listener.bind((ip, port))
+        listener.bind((ip, int(port)))
         listener.listen(0)
         print("Socket listening on port " + str(port))
         (self.connection, self.client_address) = listener.accept()
@@ -37,9 +37,9 @@ class SocketListener:
 
     def command_execute(self, command_input):
         self.json_send(command_input)
-        if command_input == "exit":
+        if command_input[0] == "exit":
             self.connection.close()
-            exit(0)
+            exit()
         return self.json_receive()
 
     def save_file(self, file_path, content):
